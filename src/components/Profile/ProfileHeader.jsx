@@ -11,18 +11,20 @@ const ProfileHeader = () => {
       <AvatarGroup
         justifySelf={"center"}
         alignSelf={"flex-start"}
-        mx={"auto"}
+        my={"auto"}
+        mx={"20px"}
         size={{ base: "xl", md: "2xl" }}
+        scale={2}
       >
-        <Avatar  name="HazzaMore" src="/profilepic.png" alt="HazzaMore Logo" />
+        <Avatar name="HazzaMore" src="/profilepic.png" alt="HazzaMore Logo" />
       </AvatarGroup>
       <VStack alignItems={"start"} gap={2} mx={"auto"} flex={1}>
         <Flex
-					gap={4}
-					direction={{ base: "column", sm: "row" }}
-					justifyContent={{ base: "center", sm: "flex-start" }}
-					alignItems={"center"}
-					w={"full"}
+          gap={4}
+          direction={{ base: "column", sm: "row" }}
+          justifyContent={{ base: "center", sm: "flex-start" }}
+          alignItems={"center"}
+          w={"full"}
         >
           <Text fontSize={{ base: "sm", md: "lg" }}> HazzaMore </Text>
           <Flex gap={4} alignItems={"center"} justifyContent={"center"}>

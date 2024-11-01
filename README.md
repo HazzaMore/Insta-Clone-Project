@@ -22,5 +22,5 @@ https://github.com/burakorkmez/instagram-clone/tree/master
 
 |Use|url|
 |--|--|
-|useCreateUserWithEmailAndPassword |https://github.com/csfrequency/react-firebase-hooks/tree/09bf06b28c82b4c3c1beabb1b32a8007232ed045/auth#usecreateuserwithemailandpassword|
+|useCreateUserWithEmailAndPassword<br> useSignOut<br>useAuthState |https://github.com/csfrequency/react-firebase-hooks/tree/09bf06b28c82b4c3c1beabb1b32a8007232ed045/auth|
 |Add a document to db <br> e.g. for adding the user|https://firebase.google.com/docs/firestore/manage-data/add-data|

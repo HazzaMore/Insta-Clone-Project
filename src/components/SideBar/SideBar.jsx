@@ -1,11 +1,15 @@
 import { Box, Flex, Link } from "@chakra-ui/react";
+import { Button } from "../ui/button";
 import { Link as RouterLink } from "react-router-dom";
 import { InstagramLogo, InstagramMobileLogo } from "../../assets/constants";
+
 import SidebarItems from "./SidebarItems";
 
 import { BiLogOut } from "react-icons/bi";
+import useLogout from "../../hooks/useLogout";
 
 const SideBar = () => {
+  const { handleLogout, isLoggingOut } = useLogout();
   return (
     <Box
       height={"100vh"}
@@ -42,22 +46,29 @@ const SideBar = () => {
         <Flex direction={"column"} gap={5} cursor={"pointer"}>
           <SidebarItems />
         </Flex>
-          <Link
-            display={"flex"}
-            to={"/auth"}
-            as={RouterLink}
-            alignItems={"center"}
-            gap={4}
-            _hover={{ bg: "whiteAlpha.400" }}
-            borderRadius={6}
-            p={2}
-            w={{ base: 10, md: "full" }}
-            mt={"auto"}
-            justifyContent={{ base: "center", md: "flex-start" }}
+
+        {/* LOGOUT */}
+        <Flex
+          onClick={handleLogout}
+          alignItems={"center"}
+          gap={4}
+          _hover={{ bg: "whiteAlpha.400" }}
+          borderRadius={6}
+          p={2}
+          w={{ base: 10, md: "full" }}
+          mt={"auto"}
+          justifyContent={{ base: "center", md: "flex-start" }}
+        >
+          <BiLogOut size={25} />
+          <Button
+            display={{ base: "none", md: "block" }}
+            variant={"ghost"}
+            _hover={{ bg: "transparent" }}
+            loading={isLoggingOut}
           >
-            <BiLogOut size={25} />
-            <Box display={{ base: "none", md: "block" }}>Logout</Box>
-          </Link>
+            Logout
+          </Button>
+        </Flex>
       </Flex>
     </Box>
   );

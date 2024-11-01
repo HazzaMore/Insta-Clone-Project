@@ -1,31 +1,56 @@
-import { Flex, Text, Link } from "@chakra-ui/react"
-import {Avatar} from "../ui/Avatar"
-import {Link as RouterLink} from "react-router-dom"
+import { Flex, Text } from "@chakra-ui/react";
+import { Avatar } from "../ui/avatar";
+import { Button } from "../ui/button";
+import useLogout from "../../hooks/useLogout";
+import useAuthStore from "../../store/authStore";
+import { Link } from "react-router-dom";
 
 const SuggestedHeader = () => {
+  const { handleLogout, isLoggingOut } = useLogout();
+  const authUser = useAuthStore((state) => state.user);
+
+  const colorPalette = ["red", "blue", "green", "yellow", "purple", "orange"];
+
+  const pickPalette = (name) => {
+    const index = name.charCodeAt(0) % colorPalette.length;
+    return colorPalette[index];
+  };
+
+  if (!authUser) return null;
+
   return (
     <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
       <Flex alignItems={"center"} gap={2}>
-        <Avatar name="HazzaMore" size={"lg"} src="/profilepic.png"/>
+        <Link to={`${authUser.username}`}>
+          <Avatar
+            name={authUser.username}
+            size={"lg"}
+            src={authUser.profilePicURL}
+            colorPalette={pickPalette(authUser.username)}
+          />
+        </Link>
+        <Link to={`${authUser.username}`}>
         <Text fontSize={12} fontWeight={"bold"}>
-          HazzaMore
+          {authUser.username}
         </Text>
+        </Link>
       </Flex>
-      <Link
-      as={RouterLink}
-      to={"/auth"}
-      fontSize={14}
-      fontWeight={"medium"}
-      color={"blue.400"}
-      style={{textDecoration: "none"}}
-      cursor={"pointer"}
-      transition={"0.2s ease-in-out"}
-      _hover={{color: "red"}}
+      <Button
+        size={"sm"}
+        fontSize={14}
+        fontWeight={"medium"}
+        color={"blue.400"}
+        cursor={"pointer"}
+        background={"transparent"}
+        _hover={{ background: "transparent", color: "red" }}
+        loading={isLoggingOut}
+        onClick={handleLogout}
+        transition={"0.2s ease-in-out"}
       >
-      Log out
-      </Link>
+        Log out
+      </Button>
     </Flex>
-  )
-}
+  );
+};
 
-export default SuggestedHeader
+export default SuggestedHeader;

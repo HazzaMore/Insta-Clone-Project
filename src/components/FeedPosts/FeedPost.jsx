@@ -1,7 +1,6 @@
 import PostHeader from "./PostHeader";
 import PostFooter from "./PostFooter";
 import { Image, Box } from "@chakra-ui/react";
-import { useEffect } from "react";
 
 const FeedPost = ({ img, username, avatar }) => {
   return (

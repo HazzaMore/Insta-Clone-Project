@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# To avoid sharing env variables, required to be added back later
+firebase.js

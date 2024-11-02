@@ -26,6 +26,8 @@ https://github.com/burakorkmez/instagram-clone/tree/master
 |Add a document to db <br> e.g. for adding the user|https://firebase.google.com/docs/firestore/manage-data/add-data|
 |Firestore Queries -<br> checking if username is taken |https://firebase.google.com/docs/firestore/query-data/queries|
 |Firestore Queries -<br> get a document |https://firebase.google.com/docs/firestore/query-data/get-data|
+|Chakra Templates|https://chakra-templates.vercel.app/forms/authentication|
+|Uploading file to firebase|https://firebase.google.com/docs/storage/web/upload-files|
 
 
 ## Known flaws/bugs

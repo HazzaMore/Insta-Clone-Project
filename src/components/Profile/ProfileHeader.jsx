@@ -75,18 +75,20 @@ const ProfileHeader = () => {
               </DialogContent>
             </DialogRoot>
           )}
-        </Flex>
 
-        {visitingAnotherProfileAndAuth && (
-          <Button
-            bg={"blue.500"}
-            color={"white"}
-            _hover={{ bg: "blue.600" }}
-            size={{ base: "xs", md: "sm" }}
-          >
-            Follow
-          </Button>
-        )}
+          {visitingAnotherProfileAndAuth && (
+            <Flex gap={4} alignItems={"center"} justifyContent={"center"}>
+              <Button
+                bg={"blue.500"}
+                color={"white"}
+                _hover={{ bg: "blue.600" }}
+                size={{ base: "xs", md: "sm" }}
+              >
+                Follow
+              </Button>
+            </Flex>
+          )}
+        </Flex>
 
         <Flex alignItems={"center"} gap={{ base: 2, sm: 4 }}>
           <Text fontSize={{ base: "xm", md: "sm" }}>

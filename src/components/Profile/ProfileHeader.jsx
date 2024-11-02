@@ -9,10 +9,15 @@ import {
   DialogContent,
   DialogCloseTrigger,
 } from "../ui/dialog";
+import useFollowUser from "../../hooks/useFollowUser";
 
 const ProfileHeader = () => {
   const { userProfile } = useUserProfileStore();
   const authUser = useAuthStore((state) => state.user);
+
+  const { isFollowing, isUpdating, handleFollowUser } = useFollowUser(
+    userProfile?.uid
+  );
 
   const visitingOwnProfileAndAuth =
     authUser && authUser.username === userProfile.username;
@@ -79,12 +84,14 @@ const ProfileHeader = () => {
           {visitingAnotherProfileAndAuth && (
             <Flex gap={4} alignItems={"center"} justifyContent={"center"}>
               <Button
-                bg={"blue.500"}
+                bg={isFollowing ? "gray.500" : "blue.500"}
                 color={"white"}
-                _hover={{ bg: "blue.600" }}
+                _hover={{ bg: isFollowing ? "gray.600" : "blue.600" }}
                 size={{ base: "xs", md: "sm" }}
+                loading={isUpdating}
+                onClick={handleFollowUser}
               >
-                Follow
+                {isFollowing ? "Unfollow" : "Follow"}
               </Button>
             </Flex>
           )}

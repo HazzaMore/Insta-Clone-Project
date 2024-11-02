@@ -26,3 +26,7 @@ https://github.com/burakorkmez/instagram-clone/tree/master
 |Add a document to db <br> e.g. for adding the user|https://firebase.google.com/docs/firestore/manage-data/add-data|
 |Firestore Queries -<br> checking if username is taken |https://firebase.google.com/docs/firestore/query-data/queries|
 |Firestore Queries -<br> get a document |https://firebase.google.com/docs/firestore/query-data/get-data|
+
+
+## Known flaws/bugs
+* When creating an account, username checks are not case insensitive.Meaning a user with janedoe can exist alongside JaneDoe and janeDoe etc. but all have the same url.

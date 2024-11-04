@@ -1,18 +1,18 @@
-import { toaster } from '../components/ui/Toaster'
+import { useCallback } from "react";
+import { toaster } from "../components/ui/Toaster";
 
 const useShowToast = () => {
-
-  const showToast = (title, description, status) => {
+  // useCallback is used to prevent an infinite loopby caching the function
+  const showToast = useCallback((title, description, status) => {
     toaster.create({
       type: status,
       title: title,
       description: description,
       duration: 3000,
-    })
-  }
+    });
+  },[toaster]);
 
-  return showToast
+  return showToast;
+};
 
-}
-
-export default useShowToast
+export default useShowToast;

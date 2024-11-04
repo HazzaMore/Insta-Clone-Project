@@ -88,7 +88,7 @@ const ProfileHeader = () => {
                 color={"white"}
                 _hover={{ bg: isFollowing ? "gray.600" : "blue.600" }}
                 size={{ base: "xs", md: "sm" }}
-                loading={isUpdating}
+                loading={isUpdating.toString()}
                 onClick={handleFollowUser}
               >
                 {isFollowing ? "Unfollow" : "Follow"}

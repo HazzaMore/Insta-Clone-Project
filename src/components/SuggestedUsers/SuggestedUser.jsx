@@ -40,7 +40,7 @@ const SuggestedUser = ({ user, setUser }) => {
           color={"blue.400"}
           cursor={"pointer"}
           _hover={{ color: "white" }}
-          loading={isUpdating}
+          // loading={isUpdating}
           onClick={onFollowUser}
         >
           {isFollowing ? "Unfollow" : "Follow"}

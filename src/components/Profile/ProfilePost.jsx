@@ -1,5 +1,5 @@
 import { GridItem, Flex, Text, Image, Box, VStack } from "@chakra-ui/react";
-import { Avatar } from "../ui/Avatar";
+import { Avatar } from "../ui/avatar";
 import {
   DialogBody,
   DialogCloseTrigger,

@@ -1,5 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { Avatar } from "../ui/Avatar";
+import { Avatar } from "../ui/avatar";
 
 const Comment = ({ createdAt, username, profilePic, text }) => {
   return (

@@ -26,6 +26,39 @@ import usePostStore from "../../store/postStore";
 const ProfilePost = ({ post }) => {
   const userProfile = useUserProfileStore((state) => state.userProfile);
   const authUser = useAuthStore((state) => state.user);
+  const showToast = useShowToast();
+  const deletePost = usePostStore((state) => state.deletePost);
+  const decrementPostsCount = useUserProfileStore((state) => state.deletePost);
+
+  // can replace this with a custom hook if to be used elsewhere
+  const { isDeleting, setIsDeleting } = useState(false);
+
+  const handleDeletePost = async () => {
+    if (!window.confirm("Are you sure you want to delete this post?")) return;
+    if (isDeleting) return; // stops user clicking multiple times
+    try {
+      // remove the image from the firestore storage
+      const imageRef = ref(storage, `posts/${post.id}`);
+      await deleteObject(imageRef);
+      // remove the post from the post collection
+      await deleteDoc(doc(firestore, "posts", post.id));
+      // remove from posts array held within the user in the user collection
+      const userRef = doc(firestore, "users", authUser.uid);
+      await updateDoc(userRef, {
+        posts: arrayRemove(post.id),
+      });
+
+      //update user interface
+      deletePost(post.id);
+      decrementPostsCount(post.id);
+      showToast("Success", "Post deleted successfully", "success");
+    } catch (error) {
+      showToast("Error", error.message, "error");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <>
       <DialogRoot placement="center" size={{ base: "sm", md: "xl" }}>
@@ -136,6 +169,8 @@ const ProfilePost = ({ post }) => {
                       _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
                       borderRadius={4}
                       p={1}
+                      onClick={handleDeletePost}
+                      loading={isDeleting}
                     >
                       <MdDelete size={20} cursor={"pointer"} />
                     </Button>

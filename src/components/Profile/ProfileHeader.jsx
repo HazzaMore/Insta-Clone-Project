@@ -1,5 +1,5 @@
 import { Flex, VStack, Text, Button, DialogBody } from "@chakra-ui/react";
-import { AvatarGroup, Avatar } from "../ui/Avatar";
+import { AvatarGroup, Avatar } from "../ui/avatar";
 import useUserProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";
 import EditProfile from "./EditProfile";

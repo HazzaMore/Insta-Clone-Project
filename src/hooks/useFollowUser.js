@@ -8,8 +8,8 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 const useFollowUser = (userId) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
-	const authUser = useAuthStore((state) => state.user);
-	const setAuthUser = useAuthStore((state) => state.setUser);
+  const authUser = useAuthStore((state) => state.user);
+  const setAuthUser = useAuthStore((state) => state.setUser);
   const { userProfile, setUserProfile } = useUserProfileStore();
   const showToast = useShowToast();
 
@@ -35,12 +35,14 @@ const useFollowUser = (userId) => {
           ...authUser,
           following: authUser.following.filter((uid) => uid !== userId),
         });
-        setUserProfile({
-          ...userProfile,
-          followers: userProfile.followers.filter(
-            (uid) => uid !== authUser.uid
-          ),
-        });
+        //will cause an error if run when the user is not on the profile page, hence an if statement
+        if (userProfile)
+          setUserProfile({
+            ...userProfile,
+            followers: userProfile.followers.filter(
+              (uid) => uid !== authUser.uid
+            ),
+          });
         //unfollow - update local state
         localStorage.setItem(
           "user-info",
@@ -56,15 +58,19 @@ const useFollowUser = (userId) => {
           ...authUser,
           following: [...authUser.following, userId],
         });
-        setUserProfile({
-          ...userProfile,
-          followers: [...userProfile.followers, authUser.uid],
-        });
+        if (userProfile)
+          setUserProfile({
+            ...userProfile,
+            followers: [...userProfile.followers, authUser.uid],
+          });
         //follow - update local state
-        localStorage.setItem("user-info", JSON.stringify({
-          ...authUser,
-          following: [...authUser.following, userId],
-        }));
+        localStorage.setItem(
+          "user-info",
+          JSON.stringify({
+            ...authUser,
+            following: [...authUser.following, userId],
+          })
+        );
         setIsFollowing(true);
       }
     } catch (error) {

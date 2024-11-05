@@ -29,6 +29,10 @@ https://github.com/burakorkmez/instagram-clone/tree/master
 |Chakra Templates|https://chakra-templates.vercel.app/forms/authentication|
 |Uploading file to firebase|https://firebase.google.com/docs/storage/web/upload-files|
 
+## ToDos:
+* Make a loading skeleton for the suggested users
 
 ## Known flaws/bugs
 * When creating an account, username checks are not case insensitive.Meaning a user with janedoe can exist alongside JaneDoe and janeDoe etc. but all have the same url.
+* In the search, the suggested user's follow count sometimes isn't updating, could be difference because of not reading up to date local and database state - afaik the user profile updates fine, so worth checking how that works to compare
+* CreatePost works when within a user profile, but when in home the userProfile is null and it shows that error despite the post successfully being created

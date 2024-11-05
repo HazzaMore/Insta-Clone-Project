@@ -6,10 +6,21 @@ import {
   CommentLogo,
 } from "../../assets/constants";
 import { useState } from "react";
+import usePostComment from "../../hooks/usePostComment";
 
-const PostFooter = ({ username, isProfilePage }) => {
+const PostFooter = ({ post, username, isProfilePage }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(1000);
+
+  const { isCommenting, handlePostComment } = usePostComment();
+  const [comment, setComment] = useState("");
+  const authUser = useAuthStore((state) => state.user);
+
+  const handleSubmitComment = async () => {
+    await handlePostComment(post.id, comment);
+    setComment("");
+  };
+
   const handleLike = () => {
     if (liked) {
       setLiked(false);
@@ -46,29 +57,35 @@ const PostFooter = ({ username, isProfilePage }) => {
           </Text>
         </>
       )}
-      <Flex alignItems={"center"} gap={2} justifyContent={"space-between"}>
-        <InputGroup
-          w={"full"}
-          endElement={
-            <Button
+      {authUser && (
+        <Flex alignItems={"center"} gap={2} justifyContent={"space-between"}>
+          <InputGroup
+            w={"full"}
+            endElement={
+              <Button
+                fontSize={14}
+                color={"blue.500"}
+                fontWeight={600}
+                cursor={"pointer"}
+                _hover={{ color: "white" }}
+                bg={"transparent"}
+                onClick={handleSubmitComment}
+                loading={isCommenting}
+              >
+                Post
+              </Button>
+            }
+          >
+            <Input
+              variant={"flushed"}
+              placeholder={"Add a comment ..."}
               fontSize={14}
-              color={"blue.500"}
-              fontWeight={600}
-              cursor={"pointer"}
-              _hover={{ color: "white" }}
-              bg={"transparent"}
-            >
-              Post
-            </Button>
-          }
-        >
-          <Input
-            variant={"flushed"}
-            placeholder={"Add a comment ..."}
-            fontSize={14}
-          />
-        </InputGroup>
-      </Flex>
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
+            />
+          </InputGroup>
+        </Flex>
+      )}
     </Box>
   );
 };

@@ -38,7 +38,7 @@ const GoogleAuth = ({ prefix }) => {
           profilePicURL: newUser.user.photoURL,
           followers: [],
           following: [],
-          poasts: [],
+          posts: [],
           createdAt: Date.now(),
         };
         await setDoc(doc(firestore, "users", newUser.user.uid), userDoc);

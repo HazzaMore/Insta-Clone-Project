@@ -31,6 +31,7 @@ https://github.com/burakorkmez/instagram-clone/tree/master
 
 ## ToDos:
 * Make a loading skeleton for the suggested users
+* remove casing errors before upload or else the build will fail
 
 ## Known flaws/bugs
 * When creating an account, username checks are not case insensitive.Meaning a user with janedoe can exist alongside JaneDoe and janeDoe etc. but all have the same url.

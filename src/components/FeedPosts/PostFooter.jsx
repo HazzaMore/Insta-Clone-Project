@@ -11,19 +11,23 @@ import useAuthStore from "../../store/authStore";
 import useLikePost from "../../hooks/useLikePost";
 import { timeAgo } from "../../utils/timeAgo";
 
-const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
+import {
+  DialogRoot,
+  DialogTrigger,
+} from "../ui/dialog";
+import PostModal from "../Modals/PostModal";
 
+const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
   const { isCommenting, handlePostComment } = usePostComment();
   const [comment, setComment] = useState("");
   const authUser = useAuthStore((state) => state.user);
   const commentRef = useRef(null);
-  const {handleLikePost, isLiked, likes} = useLikePost(post);
+  const { handleLikePost, isLiked, likes } = useLikePost(post);
 
   const handleSubmitComment = async () => {
     await handlePostComment(post.id, comment);
     setComment("");
   };
-
 
   return (
     <Box marginTop={"auto"}>
@@ -31,7 +35,11 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
         <Box onClick={handleLikePost} cursor={"pointer"} fontSize={18}>
           {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}
         </Box>
-        <Box cursor={"pointer"} fontSize={18} onClick={() => commentRef.current.focus()}>
+        <Box
+          cursor={"pointer"}
+          fontSize={18}
+          onClick={() => commentRef.current.focus()}
+        >
           <CommentLogo />
         </Box>
       </Flex>
@@ -55,13 +63,18 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
               {post.caption}
             </Box>
           </Text>
-          
-            {post.comments.length > 0 && (
+
+          {post.comments.length > 0 && (
+            <DialogRoot placement="center" size={{ base: "sm", md: "xl" }}>
+              <DialogTrigger>
               <Text fontSize={"sm"} color={"gray"} cursor={"pointer"}>
                 View all {post.comments.length} comments
               </Text>
-            )} 
-          
+            </DialogTrigger>
+            < PostModal post={post} creatorProfile={creatorProfile} />
+            </DialogRoot>
+            
+          )}
         </>
       )}
       {authUser && (
@@ -93,7 +106,6 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
             />
           </InputGroup>
         </Flex>
-
       )}
     </Box>
   );

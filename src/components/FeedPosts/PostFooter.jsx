@@ -7,6 +7,7 @@ import {
 } from "../../assets/constants";
 import { useState } from "react";
 import usePostComment from "../../hooks/usePostComment";
+import useAuthStore from "../../store/authStore";
 
 const PostFooter = ({ post, username, isProfilePage }) => {
   const [liked, setLiked] = useState(false);
@@ -85,6 +86,7 @@ const PostFooter = ({ post, username, isProfilePage }) => {
             />
           </InputGroup>
         </Flex>
+
       )}
     </Box>
   );

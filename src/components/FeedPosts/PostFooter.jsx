@@ -9,8 +9,9 @@ import { useState, useRef } from "react";
 import usePostComment from "../../hooks/usePostComment";
 import useAuthStore from "../../store/authStore";
 import useLikePost from "../../hooks/useLikePost";
+import { timeAgo } from "../../utils/timeAgo";
 
-const PostFooter = ({ post, username, isProfilePage }) => {
+const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
 
   const { isCommenting, handlePostComment } = usePostComment();
   const [comment, setComment] = useState("");
@@ -37,17 +38,30 @@ const PostFooter = ({ post, username, isProfilePage }) => {
       <Text fontWeight={600} fontSize={"sm"}>
         {likes} likes
       </Text>
+
+      {/* If within the profile page we can see the posted time ago */}
+      {isProfilePage && (
+        <Text fontSize="12" color={"gray"}>
+          Posted {timeAgo(post.createdAt)}
+        </Text>
+      )}
+
+      {/* Outside of profile page, hence the footer used in the main feed */}
       {!isProfilePage && (
         <>
           <Text fontWeight={700} fontSize={"sm"}>
-            {username}
+            {creatorProfile?.username}
             <Box as="span" fontWeight={400} ml={2}>
-              Feeling Good
+              {post.caption}
             </Box>
           </Text>
-          <Text fontSize={"sm"} color={"gray"}>
-            View all 1,000 comments
-          </Text>
+          
+            {post.comments.length > 0 && (
+              <Text fontSize={"sm"} color={"gray"} cursor={"pointer"}>
+                View all {post.comments.length} comments
+              </Text>
+            )} 
+          
         </>
       )}
       {authUser && (

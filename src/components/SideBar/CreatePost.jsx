@@ -185,9 +185,14 @@ function useCreatePost() {
 
       newPost.imageURL = downloadURL;
 
+      // Only update the posts locally if we are on our own profile page
+      // otherwise a new post will appear on the profile page of whatever user we are viewing
       if (userProfile.uid === authUser.uid)
         createPost({ ...newPost, id: postDocRef.id });
 
+      // We don't need to update the posts count locally if we aren't on the profile page, 
+      // and it doesn't update the post count on the profile page of another user
+      // if we create a post whilst on their page
       if (pathname !== "/" && userProfile.uid === authUser.uid)
         addPost({ ...newPost, id: postDocRef.id });
 

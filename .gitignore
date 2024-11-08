@@ -23,5 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-# To avoid sharing env variables, required to be added back later
-firebase.js
+# Below was ignored at the start to avoid sharing env variables, but now we're using a .env file
+# firebase.js
+
+## replaced with below
+.env

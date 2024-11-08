@@ -1,5 +1,5 @@
 import { Box, Container, Flex, VStack, Text } from "@chakra-ui/react";
-import { Skeleton, SkeletonCircle } from "../ui/Skeleton";
+import { Skeleton, SkeletonCircle } from "../ui/skeleton";
 import FeedPost from "./FeedPost";
 import useGetFeedPosts from "../../hooks/useGetFeedPosts";
 

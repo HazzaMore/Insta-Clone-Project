@@ -1,7 +1,7 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { Avatar } from "../ui/avatar";
 import useGetUserProfileById from "../../hooks/useGetUserProfileById";
-import { Skeleton, SkeletonCircle } from "../ui/Skeleton";
+import { Skeleton, SkeletonCircle } from "../ui/skeleton";
 import { Link } from "react-router-dom";
 import { timeAgo } from "../../utils/timeAgo";
 

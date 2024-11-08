@@ -38,3 +38,33 @@ https://github.com/burakorkmez/instagram-clone/tree/master
 * In the search, the suggested user's follow count sometimes isn't updating, could be difference because of not reading up to date local and database state - afaik the user profile updates fine, so worth checking how that works to compare
 * CreatePost works when within a user profile, but when in home the userProfile is null and it shows that error despite the post successfully being created
 * When returning the posts: Each child in a list should have a unique "key" prop.
+
+## Firebase rules
+
+```
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+		match /users/{userId} {
+    allow read;
+    // user is authenticated and in their own document
+    allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    match /posts/{postId} {
+    allow read;
+    allow create: if request.auth != null
+    // can only update & delete the post if they are also the creator
+    allow update: if request.auth != null && request.auth.uid == resource.data.createdBy;
+    allow delete: if request.auth != null && request.auth.uid == resource.data.createdBy;
+    }
+
+    match /{document=**} {
+      // allow read, write: if request.auth != null && request.auth.uid != null; // Allow authenticated users
+      allow read: if request.origin == 'http://localhost:5173'; // Allow your frontend
+    }
+  }
+}
+```

@@ -8,15 +8,15 @@ const Caption = ({ post }) => {
   const userProfile = useUserProfileStore((state) => state.userProfile);
   return (
     <Flex gap={4} alignItems={"center"}>
-      <Link to={`/${userProfile.username}`}>
+      <Link to={`/${userProfile?.username}`}>
         <Avatar src={userProfile?.profilePicURL} size={"sm"} />
       </Link>
 
       <Flex direction={"column"}>
         <Flex gap={2}>
-          <Link to={`/${userProfile.username}`}>
+          <Link to={`/${userProfile?.username}`}>
             <Text fontWeight={"bold"} fontSize={12}>
-              {userProfile.username}
+              {userProfile?.username}
             </Text>
           </Link>
           <Text fontSize={14}>{post.caption}</Text>

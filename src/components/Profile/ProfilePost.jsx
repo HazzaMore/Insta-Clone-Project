@@ -1,23 +1,20 @@
-import { GridItem, Flex, Text, Image, Box, VStack } from "@chakra-ui/react";
-import { Avatar } from "../ui/avatar";
+import { GridItem, Flex, Text, Image, VStack } from "@chakra-ui/react";
 import {
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
   DialogRoot,
   DialogTrigger,
 } from "../ui/dialog";
-import Comment from "../Comment/Comment";
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import PostFooter from "../FeedPosts/PostFooter";
 
-const ProfilePost = ({ img }) => {
+import PostModal from "../Modals/PostModal";
+
+
+const ProfilePost = ({ post }) => {
+
+
   return (
     <>
-      
-      <DialogRoot placement="center" size={{base: "sm", md: "xl"}}>
+      <DialogRoot placement="center" size={{ base: "sm", md: "xl" }}>
         {/* <DialogBackdrop /> */}
         <DialogTrigger>
           <GridItem
@@ -48,13 +45,13 @@ const ProfilePost = ({ img }) => {
                 <Flex>
                   <AiFillHeart size={20} />
                   <Text fontWeight={"bold"} ml={2}>
-                    7
+                    {post.likes.length}
                   </Text>
                 </Flex>
                 <Flex>
                   <FaComment size={20} />
                   <Text fontWeight={"bold"} ml={2}>
-                    8
+                    {post.comments.length}
                   </Text>
                 </Flex>
               </Flex>
@@ -62,7 +59,7 @@ const ProfilePost = ({ img }) => {
 
             {/* Image */}
             <Image
-              src={img}
+              src={post.imageURL}
               alt="profile post"
               w={"100%"}
               h={"100%"}
@@ -70,145 +67,7 @@ const ProfilePost = ({ img }) => {
             />
           </GridItem>
         </DialogTrigger>
-        <DialogContent>
-          <DialogCloseTrigger />
-          <DialogBody bg={"black"} pb={5}>
-            
-            <Flex
-              gap="4"
-              w={{ base: "90%", sm: "70%", md: "full" }}
-              mx={"auto"}
-              divideX="2px"
-            >
-              {/* Left Hand Side of Popup */}
-              <Box
-                borderRadius={4}
-                overflow={"hidden"}
-                border={"1px solid"}
-                borderColor={"whiteAlpha.300"}
-                flex={1.5}
-                
-              >
-                <Image src={img} alt="Profile Post" />
-              </Box>
-              {/* Right hand Side of Popup */}
-              <Flex
-                flex={1}
-                flexDir={"column"}
-                px={10}
-                display={{ base: "none", md: "flex" }}
-                divideY="2px"
-              >
-                <Flex alignItems={"center"} justifyContent={"space-between"}>
-                  {/* Profile Header */}
-                  <Flex alignItems={"center"} gap={4}>
-                    <Avatar
-                      src="/profilepic.png"
-                      size={"sm"}
-                      name="HazzaMore"
-                    />
-                    <Text fontWeight={"bold"} fontSize={12}>
-                      HazzaMore
-                    </Text>
-                  </Flex>
-                  <Box
-                    _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
-                    borderRadius={4}
-                    p={1}
-                  >
-                    <MdDelete size={20} cursor={"pointer"} />
-                  </Box>
-                </Flex>
-                <VStack
-                  w="full"
-                  alignItems={"start"}
-                  maxH={"350px"}
-                  overflowY={"auto"}
-                >
-                  <Comment
-                    createdAt="2 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"This is a comment"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                  <Comment
-                    createdAt="5 hours ago"
-                    username="HazzaMore"
-                    profilePic="/profilepic.png"
-                    text={"I am farming engagement"}
-                  />
-                </VStack>
-                <PostFooter isProfilePage={true}/>
-              </Flex>
-            </Flex>
-          </DialogBody>
-        </DialogContent>
+        <PostModal post={post} />
       </DialogRoot>
     </>
   );

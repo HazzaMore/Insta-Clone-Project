@@ -5,70 +5,108 @@ import {
   UnlikeLogo,
   CommentLogo,
 } from "../../assets/constants";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import usePostComment from "../../hooks/usePostComment";
+import useAuthStore from "../../store/authStore";
+import useLikePost from "../../hooks/useLikePost";
+import { timeAgo } from "../../utils/timeAgo";
 
-const PostFooter = ({ username, isProfilePage }) => {
-  const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState(1000);
-  const handleLike = () => {
-    if (liked) {
-      setLiked(false);
-      setLikes(likes - 1);
-    } else {
-      setLiked(true);
-      setLikes(likes + 1);
-    }
+import {
+  DialogRoot,
+  DialogTrigger,
+} from "../ui/dialog";
+import PostModal from "../Modals/PostModal";
+
+const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
+  const { isCommenting, handlePostComment } = usePostComment();
+  const [comment, setComment] = useState("");
+  const authUser = useAuthStore((state) => state.user);
+  const commentRef = useRef(null);
+  const { handleLikePost, isLiked, likes } = useLikePost(post);
+
+  const handleSubmitComment = async () => {
+    await handlePostComment(post.id, comment);
+    setComment("");
   };
 
   return (
     <Box marginTop={"auto"}>
       <Flex alignItems={"center"} gap={4} width={"full"} pt={0} mb={2} my={4}>
-        <Box onClick={handleLike} cursor={"pointer"} fontSize={18}>
-          {!liked ? <NotificationsLogo /> : <UnlikeLogo />}
+        <Box onClick={handleLikePost} cursor={"pointer"} fontSize={18}>
+          {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}
         </Box>
-        <Box cursor={"pointer"} fontSize={18}>
+        <Box
+          cursor={"pointer"}
+          fontSize={18}
+          onClick={() => commentRef.current.focus()}
+        >
           <CommentLogo />
         </Box>
       </Flex>
       <Text fontWeight={600} fontSize={"sm"}>
         {likes} likes
       </Text>
+
+      {/* If within the profile page we can see the posted time ago */}
+      {isProfilePage && (
+        <Text fontSize="12" color={"gray"}>
+          Posted {timeAgo(post.createdAt)}
+        </Text>
+      )}
+
+      {/* Outside of profile page, hence the footer used in the main feed */}
       {!isProfilePage && (
         <>
           <Text fontWeight={700} fontSize={"sm"}>
-            {username}
+            {creatorProfile?.username}
             <Box as="span" fontWeight={400} ml={2}>
-              Feeling Good
+              {post.caption}
             </Box>
           </Text>
-          <Text fontSize={"sm"} color={"gray"}>
-            View all 1,000 comments
-          </Text>
+
+          {post.comments.length > 0 && (
+            <DialogRoot placement="center" size={{ base: "sm", md: "xl" }}>
+              <DialogTrigger>
+              <Text fontSize={"sm"} color={"gray"} cursor={"pointer"}>
+                View all {post.comments.length} comments
+              </Text>
+            </DialogTrigger>
+            < PostModal post={post} creatorProfile={creatorProfile} />
+            </DialogRoot>
+            
+          )}
         </>
       )}
-      <Flex alignItems={"center"} gap={2} justifyContent={"space-between"}>
-        <InputGroup
-          w={"full"}
-          endElement={
-            <Button
+      {authUser && (
+        <Flex alignItems={"center"} gap={2} justifyContent={"space-between"}>
+          <InputGroup
+            w={"full"}
+            endElement={
+              <Button
+                fontSize={14}
+                color={"blue.500"}
+                fontWeight={600}
+                cursor={"pointer"}
+                _hover={{ color: "white" }}
+                bg={"transparent"}
+                onClick={handleSubmitComment}
+                loading={isCommenting}
+              >
+                Post
+              </Button>
+            }
+          >
+            <Input
+              variant={"flushed"}
+              placeholder={"Add a comment ..."}
               fontSize={14}
-              color={"blue.500"}
-              fontWeight={600}
-              cursor={"pointer"}
-              _hover={{ color: "white" }}
-              bg={"transparent"}
-            >
-              Post
-            </Button>
-          }
-        >
-          <Input
-            variant={"flushed"}
-            placeholder={"Add a comment ..."}
-            fontSize={14}
-          />
-        </InputGroup>
-      </Flex>
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
+              ref={commentRef}
+            />
+          </InputGroup>
+        </Flex>
+      )}
     </Box>
   );
 };

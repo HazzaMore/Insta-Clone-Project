@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { toaster } from "../components/ui/Toaster";
+import { toaster } from "../components/ui/toaster";
 
 const useShowToast = () => {
   // useCallback is used to prevent an infinite loopby caching the function

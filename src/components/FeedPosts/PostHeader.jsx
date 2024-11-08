@@ -1,5 +1,5 @@
 import { Flex, Box } from "@chakra-ui/react"
-import { Button } from "../ui/Button"
+import { Button } from "../ui/button"
 import { Avatar } from "../ui/avatar"
 import { Link } from "react-router-dom"
 import { SkeletonCircle, Skeleton } from "../ui/skeleton"

@@ -24,11 +24,11 @@ function _optionalChain(ops) {
 import {
   Toaster as ChakraToaster,
   Portal,
-  Spinner,
   Stack,
   Toast,
   createToaster,
 } from '@chakra-ui/react'
+import Spinner from 'react-bootstrap/Spinner';
 
 export const toaster = createToaster({
   placement: 'bottom-end',
@@ -46,7 +46,7 @@ export const Toaster = () => {
         {(toast) => (
           <Toast.Root>
             {toast.type === 'loading' ? (
-              <Spinner size='sm' color='blue.solid' />
+              <Spinner animation="border" size='sm'/>
             ) : (
               <Toast.Indicator />
             )}

@@ -2,7 +2,8 @@ import { Input } from "@chakra-ui/react";
 import { Alert } from "../ui/alert";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+// import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { InputGroup } from "../ui/input-group";
 import useSignUpWithEmailAndPassword from "../../hooks/useSignUpWithEmailAndPassword";
 
@@ -56,7 +57,7 @@ const Signup = () => {
             size={"sm"}
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+            {showPassword ? <FaEye /> : <FaEyeSlash />}
           </Button>
         }
       >

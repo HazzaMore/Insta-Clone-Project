@@ -1,9 +1,10 @@
-import { Box, Flex, Spinner } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import SideBar from "../components/SideBar/SideBar";
 import { useLocation } from "react-router-dom";
 import { auth } from "../firebase/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Navbar from "../components/Navbar/Navbar";
+import Spinner from 'react-bootstrap/Spinner';
 
 
 const PageLayout = ({ children }) => {
@@ -38,7 +39,7 @@ export default PageLayout;
 const PageLayoutSpinner = () => {
   return (
 		<Flex flexDir='column' h='100vh' alignItems='center' justifyContent='center'>
-			<Spinner size='xl' />
+			<Spinner animation="border"/>
 		</Flex>
 	);
 }

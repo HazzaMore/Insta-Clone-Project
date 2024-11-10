@@ -13,7 +13,7 @@ Currently, two official plugins are available:
 Note: need to find initial npm installs from https://youtu.be/RMScMwY2B6Q?si=159AAkKAR0Q4ZC6T
 
 To work with Firebase:
-`npm install firebase zustand react-firebase-hooks @chakra-ui/icons`
+`npm install firebase zustand react-firebase-hooks`
 
 ## Base Repository (outdated)
 https://github.com/burakorkmez/instagram-clone/tree/master

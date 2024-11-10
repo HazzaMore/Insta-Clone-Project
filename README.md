@@ -31,7 +31,7 @@ https://github.com/burakorkmez/instagram-clone/tree/master
 
 ## ToDos:
 * Make a loading skeleton for the suggested users
-* remove casing errors before upload or else the build will fail
+~~* remove casing errors before upload or else the build will fail~~
 
 ## Known flaws/bugs
 * When creating an account, username checks are not case insensitive.Meaning a user with janedoe can exist alongside JaneDoe and janeDoe etc. but all have the same url.
@@ -69,3 +69,6 @@ service cloud.firestore {
   }
 }
 ```
+
+In the firebase authentication settings you must add the vercel url to the trusted domains, in order to resume google authentication access.
+And for rerouting to work, the vercel.json is required
